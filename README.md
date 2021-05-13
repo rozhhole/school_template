@@ -1,1 +1,5 @@
-## Template for repositories with home works of pro course students
+-  Hi, I’m @rozhhole
+-  I’m interested in javascript
+-  I’m currently learning react course on the TeachMeSkills academy
+-  I’m looking to collaborate on some company
+-  How to reach me by telegram @rozhhole
