@@ -1,11 +1,8 @@
-class Builder {
-  constructor(value) {
-    this.value = value
-  }
-
-  get() {
-    return this
-  }
+function Builder(value) {
+  this.value = value
+}
+Builder.prototype.get = function () {
+  return this
 }
 
 function IntBuilder(value) {
@@ -16,7 +13,7 @@ IntBuilder.prototype = Object.create(Builder.prototype)
 
 IntBuilder.prototype.plus = function (...arg) {
   let sum = 0
-  for (let i = 0; i < arg.length; i++) {
+  for (let i = 0; i < arg.length; i += 1) {
     sum += arg[i]
   }
   this.value += sum
@@ -25,7 +22,7 @@ IntBuilder.prototype.plus = function (...arg) {
 
 IntBuilder.prototype.minus = function (...arg) {
   let sum = 0
-  for (let i = 0; i < arg.length; i++) {
+  for (let i = 0; i < arg.length; i += 1) {
     sum += arg[i]
   }
   this.value -= sum
@@ -71,7 +68,7 @@ class StringBuilder extends Builder {
 
   plus(...arg) {
     let ourString = ''
-    for (let i = 0; i < arg.length; i++) {
+    for (let i = 0; i < arg.length; i += 1) {
       ourString += arg[i]
     }
     this.value += ourString
