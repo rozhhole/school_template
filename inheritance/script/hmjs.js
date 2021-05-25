@@ -1,0 +1,108 @@
+function Builder(value) {
+  this.value = value
+}
+Builder.prototype.get = function () {
+  return this.value
+}
+
+function IntBuilder(value) {
+  Builder.call(this, value)
+}
+
+IntBuilder.prototype = Object.create(Builder.prototype)
+IntBuilder.prototype.constructor = IntBuilder
+
+IntBuilder.prototype.plus = function (...arg) {
+  let sum = 0
+  for (let i = 0; i < arg.length; i += 1) {
+    sum += arg[i]
+  }
+  this.value += sum
+  return this
+}
+
+IntBuilder.prototype.minus = function (...arg) {
+  let sum = 0
+  for (let i = 0; i < arg.length; i += 1) {
+    sum += arg[i]
+  }
+  this.value -= sum
+  return this
+}
+
+IntBuilder.prototype.multiply = function (num) {
+  this.value *= num
+  return this
+}
+
+IntBuilder.prototype.divide = function (num) {
+  this.value = Math.floor(this.value / num)
+  return this
+}
+
+IntBuilder.prototype.mod = function (num) {
+  this.value %= num
+  return this
+}
+
+IntBuilder.random = function (min, max) {
+  this.min = min
+  this.max = max
+  this.value = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min
+  return this.value
+}
+
+const intBuilder = new IntBuilder(10)
+intBuilder
+  .plus(2, 3, 2)
+  .minus(1, 2)
+  .multiply(2)
+  .divide(4)
+  .mod(3)
+  .get()
+
+class StringBuilder extends Builder {
+  plus(...arg) {
+    let ourString = ''
+    for (let i = 0; i < arg.length; i += 1) {
+      ourString += arg[i]
+    }
+    this.value += ourString
+    return this
+  }
+
+  minus(num) {
+    this.value = this.value.slice(0, -num)
+    return this
+  }
+
+  multiply(num) {
+    this.value = this.value.repeat(num)
+    return this
+  }
+
+  divide(num) {
+    this.value = this.value.slice(0, num)
+    return this
+  }
+
+  remove(symbol) {
+    this.value = this.value.split('').filter((item) => item !== symbol).join('')
+    return this
+  }
+
+  sub(...arg) {
+    this.value = this.value.substr(arg[0], arg[1])
+    return this
+  }
+}
+
+const strBuilder = new StringBuilder('Hello ')
+strBuilder
+  .plus(' all', '!')
+  .minus(2)
+  .multiply(3)
+  .divide(4)
+  .remove('l')
+  .sub(1, 1)
+  .get()
