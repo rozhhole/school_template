@@ -2,14 +2,15 @@ function Builder(value) {
   this.value = value
 }
 Builder.prototype.get = function () {
-  return this
+  return this.value
 }
 
 function IntBuilder(value) {
-  this.value = value
+  Builder.call(this, value)
 }
 
 IntBuilder.prototype = Object.create(Builder.prototype)
+IntBuilder.prototype.constructor = IntBuilder
 
 IntBuilder.prototype.plus = function (...arg) {
   let sum = 0
@@ -44,11 +45,11 @@ IntBuilder.prototype.mod = function (num) {
   return this
 }
 
-IntBuilder.prototype.random = function (min, max) {
+IntBuilder.random = function (min, max) {
   this.min = min
   this.max = max
   this.value = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min
-  return this
+  return this.value
 }
 
 const intBuilder = new IntBuilder(10)
@@ -61,11 +62,6 @@ intBuilder
   .get()
 
 class StringBuilder extends Builder {
-  constructor(value) {
-    super(value)
-    this.value = value
-  }
-
   plus(...arg) {
     let ourString = ''
     for (let i = 0; i < arg.length; i += 1) {
